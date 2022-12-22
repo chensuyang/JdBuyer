@@ -85,8 +85,7 @@ class Buyer(object):
                     if self.session.trySubmitOrder(skuId, skuNum, areaId, submitRetry, submitInterval):
                         logger.info('下单成功')
                         if self.enableWx:
-                            send_wechat(
-                                message='JdBuyerApp', desp='您的商品已下单成功，请及时支付订单', sckey=self.scKey)
+                            send_wechat(message='JdBuyerApp', desp='您的商品已下单成功，请及时支付订单', sckey=self.scKey)
                         return
             except Exception as e:
                 logger.error(e)
@@ -98,7 +97,7 @@ if __name__ == '__main__':
     # 商品sku
     skuId = '100015253059'
     # 区域id(可根据工程 area_id 目录查找)
-    areaId = '1_2901_55554_0'
+    areaId = '12_988_3444_48014'
     # 购买数量
     skuNum = 1
     # 库存查询间隔(秒)
