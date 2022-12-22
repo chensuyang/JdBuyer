@@ -1,9 +1,13 @@
 import qtmodern.styles
 import qtmodern.windows
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import QTimer
-from PyQt5.QtWidgets import QMessageBox, QDesktopWidget
+from PyQt5.QtCore import QTimer, QDateTime, Qt, pyqtSignal, QThread
+import time
+from PyQt5.QtWidgets import QMessageBox, QDesktopWidget, QWidget
 import JdBuyerAppProUi
+import pprint
+import TabSubWidget
+
 
 # 创建窗口
 def create_window(window_work):
@@ -22,11 +26,24 @@ def create_window(window_work):
 
 class MainWindowWork(QtWidgets.QMainWindow):
     close_signal = QtCore.pyqtSignal()
-    instance_obj_array = list()
-    instance_num = 0
 
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
         self.ui = JdBuyerAppProUi.Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self.instance_obj_array = list()
+        self.instance_num = 0
+
+        self.ui.AddPushButton.clicked.connect(self.slot_AddPushButton_clicked_callback)
+        self.ui.RunPushButton.clicked.connect(self.slot_RunPushButton_clicked_callback)
+
+    def slot_AddPushButton_clicked_callback(self):
+        WidgetObj = QWidget()
+        TabSubWidgetObj = TabSubWidget.Ui_Form()
+        TabSubWidget.Ui_Form.setupUi(TabSubWidgetObj, Form=WidgetObj)
+        self.ui.tabWidget.addTab(WidgetObj, "商品%d" % (self.instance_num + 1))
+        self.instance_num = self.instance_num +1
+
+    def slot_RunPushButton_clicked_callback(self):
+        pass
